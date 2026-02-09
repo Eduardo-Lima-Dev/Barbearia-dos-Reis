@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: barbearia-postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: barbearia
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: barbearia-backend
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://admin:adminpassword@postgres:5432/barbearia?schema=public"
+      JWT_SECRET: "super-secret-key-change-in-prod"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./apps/backend:/app/apps/backend # Map source for dev if needed (requires dev setup in Dockerfile, currently optimized for prod build)
+    depends_on:
+      - postgres
+    # command override for dev mode would need different setup, keeping basic prod preview build or standard start
+    # For dev, we usually use pnpm dev locally against docker db.
+    # But user asked for docker. Let's stick to building the image for now.
+
+volumes:
+  postgres_data:

@@ -1,0 +1,326 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2026-02-08T22:30:00.000Z",
+    "__export_source": "insomnia.desktop.app:v2023.5.8",
+    "resources": [
+        {
+            "_id": "req_login",
+            "parentId": "fld_auth",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "url": "{{ _.base_url }}/auth/login",
+            "name": "Login",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"email\": \"admin@barber.com\",\n\t\"password\": \"password123\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700000000000,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_register",
+            "parentId": "fld_auth",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "url": "{{ _.base_url }}/auth/register",
+            "name": "Register",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"email\": \"newuser@example.com\",\n\t\"password\": \"securePass123\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699999999900,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_haircuts_create",
+            "parentId": "fld_haircuts",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "url": "{{ _.base_url }}/haircuts",
+            "name": "Create Haircut",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "multipart/form-data",
+                "params": [
+                    {
+                        "name": "title",
+                        "value": "Corte Moderno",
+                        "id": "pair_title",
+                        "type": "text",
+                        "multiline": false
+                    },
+                    {
+                        "name": "description",
+                        "value": "Um corte estiloso para o verão.",
+                        "id": "pair_desc",
+                        "type": "text",
+                        "multiline": false
+                    },
+                    {
+                        "name": "price",
+                        "value": "45.00",
+                        "id": "pair_price",
+                        "type": "text",
+                        "multiline": false
+                    },
+                    {
+                        "name": "tags",
+                        "value": "moderno,verao",
+                        "id": "pair_tags",
+                        "type": "text",
+                        "multiline": false
+                    },
+                    {
+                        "name": "files",
+                        "value": "",
+                        "description": "",
+                        "id": "pair_files",
+                        "type": "file",
+                        "multiline": false
+                    }
+                ]
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "multipart/form-data"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{{ _.access_token }}"
+            },
+            "metaSortKey": -1690000000000,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_haircuts_list",
+            "parentId": "fld_haircuts",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "url": "{{ _.base_url }}/haircuts",
+            "name": "List Haircuts",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [
+                {
+                    "name": "page",
+                    "value": "1",
+                    "disabled": false
+                },
+                {
+                    "name": "limit",
+                    "value": "10",
+                    "disabled": false
+                }
+            ],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1680000000000,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_haircuts_get",
+            "parentId": "fld_haircuts",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "url": "{{ _.base_url }}/haircuts/1",
+            "name": "Get Haircut by ID",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1670000000000,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_haircuts_update",
+            "parentId": "fld_haircuts",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "url": "{{ _.base_url }}/haircuts/1",
+            "name": "Update Haircut",
+            "description": "",
+            "method": "PATCH",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"price\": 50.00\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{{ _.access_token }}"
+            },
+            "metaSortKey": -1660000000000,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_haircuts_delete",
+            "parentId": "fld_haircuts",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "url": "{{ _.base_url }}/haircuts/1",
+            "name": "Delete Haircut",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {
+                "type": "bearer",
+                "token": "{{ _.access_token }}"
+            },
+            "metaSortKey": -1650000000000,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_dev",
+            "parentId": "env_base",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "name": "Dev",
+            "data": {
+                "base_url": "http://localhost:3000",
+                "access_token": "YOUR_JWT_TOKEN_HERE"
+            },
+            "dataPropertyOrder": {
+                "&": [
+                    "base_url",
+                    "access_token"
+                ]
+            },
+            "color": "#7d69cb",
+            "isPrivate": false,
+            "metaSortKey": 1699564800000,
+            "_type": "environment"
+        },
+        {
+            "_id": "env_base",
+            "parentId": "wrk_barbearia",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "name": "Base Environment",
+            "data": {},
+            "dataPropertyOrder": null,
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1699564800000,
+            "_type": "environment"
+        },
+        {
+            "_id": "wrk_barbearia",
+            "parentId": null,
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "name": "Barbearia API",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "fld_auth",
+            "parentId": "wrk_barbearia",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "name": "Auth",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1700000000000,
+            "_type": "request_group"
+        },
+        {
+            "_id": "fld_haircuts",
+            "parentId": "wrk_barbearia",
+            "modified": 1699564800000,
+            "created": 1699564800000,
+            "name": "Haircuts",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1600000000000,
+            "_type": "request_group"
+        }
+    ]
+}
