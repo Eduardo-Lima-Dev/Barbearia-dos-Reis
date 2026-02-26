@@ -1,0 +1,91 @@
+openapi: 3.0.0
+
+paths:
+  /register:
+    post:
+      tags:
+        - Auth
+      summary: Registro de novo usuário
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  example: João Barbeiro
+                email:
+                  type: string
+                  format: email
+                  example: joao@barbearia.com
+                password:
+                  type: string
+                  minLength: 6
+                  example: "senha123"
+                role:
+                  type: string
+                  enum: [BARBER, EMPLOYEE]
+                  default: EMPLOYEE
+      responses:
+        "201":
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: E-mail já cadastrado ou dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Login e geração de token JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: joao@barbearia.com
+                password:
+                  type: string
+                  example: "senha123"
+      responses:
+        "200":
+          description: Login realizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR..."
+        "401":
+          description: Credenciais inválidas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

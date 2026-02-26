@@ -1,0 +1,184 @@
+openapi: 3.0.0
+
+paths:
+  /haircuts:
+    post:
+      tags:
+        - Haircuts
+      summary: Criar novo corte
+      description: |
+        Cria um novo corte no catálogo da barbearia.
+        **Permissão:** `BARBER` e `EMPLOYEE`.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - duration
+              properties:
+                name:
+                  type: string
+                  example: Degradê com Barba
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  example: ["fade", "barba", "social"]
+                duration:
+                  type: integer
+                  example: 45
+                  description: Duração estimada em minutos
+                description:
+                  type: string
+                  example: Corte moderno com degradê nas laterais e barba alinhada.
+                modelUrl:
+                  type: string
+                  format: uri
+                  example: https://seu-projeto.supabase.co/storage/v1/object/public/models/photo.jpg
+      responses:
+        "201":
+          description: Corte criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Haircut'
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Token ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - Haircuts
+      summary: Listar cortes
+      description: |
+        Retorna a lista completa de cortes do catálogo com suporte a filtros por tags.
+        **Permissão:** `BARBER` e `EMPLOYEE`.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: tags
+          schema:
+            type: string
+          description: Filtra por tags separadas por vírgula. Ex&#58; `?tags=fade,barba`
+          example: fade,social
+      responses:
+        "200":
+          description: Lista de cortes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Haircut'
+        "401":
+          description: Token ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /haircuts/{id}:
+    put:
+      tags:
+        - Haircuts
+      summary: Atualizar corte
+      description: |
+        Atualiza os dados de um corte existente.
+        **Permissão:** Exclusivo para `BARBER`. Funcionários recebem `403 Forbidden`.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID único do corte
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                duration:
+                  type: integer
+                description:
+                  type: string
+                modelUrl:
+                  type: string
+                  format: uri
+      responses:
+        "200":
+          description: Corte atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Haircut'
+        "403":
+          description: Acesso negado - permissões insuficientes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Token ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - Haircuts
+      summary: Deletar corte
+      description: |
+        Remove permanentemente um corte do catálogo.
+        **Permissão:** Exclusivo para `BARBER`. Funcionários recebem `403 Forbidden`.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID único do corte
+      responses:
+        "204":
+          description: Corte deletado com sucesso (sem conteúdo)
+        "403":
+          description: Acesso negado - permissões insuficientes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Token ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
